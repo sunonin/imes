@@ -1,0 +1,6 @@
+{
+    "require": {
+        "foil/foil": "0.*",
+        "datatables/datatables": "^1.10"
+    }
+}

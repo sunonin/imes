@@ -44,7 +44,7 @@ class ImesManager extends Connection {
             ];
         }
 
-        return json_encode($data);
+        return $data;
 	}
 
     public function fetchRegisteredUsers($type=null) 
@@ -475,7 +475,9 @@ class ImesManager extends Connection {
                     tblstudent_history.notify,
                     tblavatar.avatar_id,
                     tblschool_programs.ojt_hours,
-                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours
+                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours,
+                    sw.start AS startTime,
+                    sw.end AS endTime
                 FROM 
                     tblprofile
                 LEFT JOIN 
@@ -500,6 +502,8 @@ class ImesManager extends Connection {
                     tblprofile ss ON ss.id = tblschool_information.ojt_coordinator
                 LEFT JOIN 
                     tblprofile sj ON sj.id = tblschool_information.ojt_head
+                LEFT JOIN 
+                    tblstudent_workschedule sw ON sw.sid = tblprofile.id
 
                 WHERE tblprofile.role = 4";
 
@@ -558,6 +562,8 @@ class ImesManager extends Connection {
             'reqHours' => $profile['ojt_hours'],
             'compHours' => $profile['completedHours'],
             'req' => $profile['req'],
+            'startTime' => !empty($profile['startTime']) ? date('h:i A', strtotime($profile['startTime'])) : '',
+            'endTime' => !empty($profile['endTime']) ? date('h:i A', strtotime($profile['endTime'])) : '',
 
         ];
 

@@ -82,7 +82,7 @@ if ($method == 'POST') {
 
 	$notif = new Notification;
 	$notif->setUserId($userId);
-	$notif->setMessage('User has been updated successfully.');
+	$notif->setMessage('Profile has been updated successfully.');
 	$notif->setType('success');
 	$notif->setHeader('Success');
 	$notif->setCreatedAt(date('Y-m-d'));

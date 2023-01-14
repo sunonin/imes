@@ -19,16 +19,8 @@ if (isset($_SESSION['user']['id'])) {
 	$school = json_decode($imes->fetchSchool(), true);
 	$studentOverview = json_decode($imes->fetchStudentOverview($_SESSION['user']['id']), true);
 	$companyConnected = json_decode($imes->fetchCompanyConnected($_SESSION['user']['id']), true);
+	$workSched = json_decode($imes->fetchWorkSchedule($_SESSION['user']['id']), true);
 	$dtrs = json_decode($imes->fetchDailyTimeRecord($_SESSION['user']['id']), true);
 
 	$hasCompletedHours = json_decode($imes->fetchCompletedHours($_SESSION['user']['id']), true);
 }
-
-// if (isset($_GET['task'])) {
-// 	$journal = json_decode($imes->fetchJournal($_GET['task']), true);
-// }
-
-// if (isset($_GET['dtr'])) {
-// 	$dtr = json_decode($imes->fetchDailyTimeRecordLimit($_GET['dtr']), true);
-// }
-

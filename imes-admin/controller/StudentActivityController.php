@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
 	$cc = count($preOjtRequirements);
     $preOjtRequirementsPercentage = ($cc / 11) * 100;
 
-} 	
+}
 
 $filterPrograms = isset($_GET['filterProgram']) ? $_GET['filterProgram'] : '';
 $filterSections = isset($_GET['filterSection']) ? $_GET['filterSection'] : '';

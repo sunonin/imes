@@ -8,14 +8,9 @@ include 'public/base.php';
 <?php startblock('title') ?>Dashboard<?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php if ($_SESSION['user']['role_id'] == 3): ?>
-    <?php include('controller/SupervisorController.php'); ?>
-    <?php include('views/supervisor/index.php'); ?>
-  <?php else: ?>
-    <?php include('controller/ProfileInitController.php'); ?>
-    <?php include('views/student/index.php'); ?>
-  <?php endif ?>
-
+  <?php include('controller/ProfileInitController.php'); ?>
+  <?php include('public/toastr.php'); ?>
+  <?php include('views/student/index.php'); ?>
 <?php endblock() ?>
 
 <?php include('views/student/app.css'); ?>
@@ -29,7 +24,6 @@ include 'public/base.php';
 
     function clockUpdate() {
       var date = new Date();
-      // $('.timer').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
       function addZero(x) {
         if (x < 10) {
           return x = '0' + x;
@@ -70,6 +64,20 @@ include 'public/base.php';
       });
     });
 
+    $(document).on('click', "#otInAction", function(e){
+      let path = "route/post-dtr-ot-in.php";
+      let id = $('#dtrId').val();
+      let data = {
+        'id' : id
+      };
+      $.post(path, data, function(result){
+        // if (result) {
+        //   location.reload();
+        // }
+
+      });
+    });
+
     $(document).on('click', "#timeOutAction", function(e){
       let path = "route/post-dtr-out.php";
       let id = $('#dtrId').val();
@@ -80,6 +88,20 @@ include 'public/base.php';
         if (result) {
           location.reload();
         }
+
+      });
+    });
+
+    $(document).on('click', "#otOutAction", function(e){
+      let path = "route/post-dtr-ot-out.php";
+      let id = $('#dtrId').val();
+      let data = {
+        'id' : id
+      };
+      $.post(path, data, function(result){
+        // if (result) {
+        //   location.reload();
+        // }
 
       });
     });

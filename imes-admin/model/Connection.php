@@ -3,9 +3,12 @@
 class Connection
 {
 	public $hostname 		= 'localhost';
-	public $dbUser	 		= 'u972732750_root';
-	public $dbPassword 		= 'cicsimis.COM2022';
-	public $dbName			= 'u972732750_imes';
+	// public $dbUser	 		= 'u972732750_root';
+	// public $dbPassword 		= 'cicsimis.COM2022';
+	// public $dbName			= 'u972732750_imes';
+	public $dbUser	 		= 'root';
+	public $dbPassword 		= '';
+	public $dbName			= 'imes';
 
 	public function connect() {
 		try {

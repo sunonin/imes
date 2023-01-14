@@ -13,6 +13,7 @@ include 'public/base.php';
   <?php include('public/toastr.php'); ?>
   <?php include('views/student_activity/connection.php'); ?>
   <?php include('views/student_activity/_company_details.php'); ?>
+  <?php include('views/student_activity/_work-schedule.php'); ?>
   <?php include('views/student_activity/_company-revoke.php'); ?>
 <?php endblock() ?>
 

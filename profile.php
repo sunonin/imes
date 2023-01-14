@@ -7,6 +7,7 @@ include 'public/base.php';
 
 <?php startblock('content') ?>
     <?php include('controller/ProfileController.php'); ?>
+    <?php include('public/toastr.php'); ?>
     <?php include('views/student/profile.php'); ?>
     <?php include('views/student/_company-details-modal.php'); ?>
 <?php endblock() ?>

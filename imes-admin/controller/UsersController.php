@@ -10,10 +10,9 @@ require_once 'manager/ImesManager.php';
 include 'verify_session.php';
 
 $imes = new ImesManager();
-$users = json_decode($imes->fetchUsers(), true);
+$users = $imes->fetchUsers();
 $profile = $citymuns_opts = [];
 $roles = json_decode($imes->fetchRoles(), true);
-
 
 if (isset($_GET['id'])) {
 	$route = 'route/put_user.php';

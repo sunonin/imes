@@ -22,7 +22,22 @@
 		            	<span>Please select from the company list below</span>
 		        	</div>
 		      	<?php endif ?>
-		      </div>
+            <br><br>
+
+            <!-- IF MERON NG WORK SCHEDULE -->
+            <span class="fw-bold me-2">Work Schedule: 
+              <?php if (!empty($student['startTime']) && !empty($student['endTime'])): ?>
+                <u><?= $student['startTime'] .' - '. $student['endTime'] ?></u>
+              <?php endif ?>
+            </span>
+		        
+            <?php if (!empty($student['startTime']) && !empty($student['endTime'])): ?>
+              <a href="route/delete-student-workschedule.php?sid=<?= $_GET['id'] ?>" class="btn btn-danger btn-sm"><span class="tf-icons bx bxs-trash"></span> Delete</a>
+            <?php else: ?>
+              <button type="button" class="btn btn-primary btn-sm workScheduleModal" data-bs-toggle="modal" data-bs-target="#workScheduleModal" data-id="<?= $companyConnected['id']; ?>"><span class="tf-icons bx bxs-time"></span> Assign</button>
+            <?php endif ?>
+
+          </div>
 		    </div>
 
             <div class="card mb-4">

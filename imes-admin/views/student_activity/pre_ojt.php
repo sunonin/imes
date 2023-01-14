@@ -352,7 +352,7 @@
                   </div>
                 </div>
 
-                <div class="d-flex mb-5">
+                <div class="d-flex mb-3">
                   <div class="flex-shrink-0">
                     <button type="button" class="btn rounded-pill btn-icon btn-secondary me-2 btn-sm" disabled>
                       <span class="tf-icons bx bxs-comment-detail"></span>
@@ -374,6 +374,39 @@
 
                           <?php if (!isset($studentOverview[1])): ?>
                             <button type="button" class="btn btn-sm btn-danger preOJTModal" data-bs-toggle="modal" data-bs-target="#preOJTModal" data-id="<?= $preOjtRequirements['iic']['reqId'] ?>"><i class='bx bx-rotate-left'></i> Return</button>
+                          <?php endif ?>
+
+                        <?php endif ?>
+
+                      <?php else: ?>
+                        <small class="text-light fw-semibold">No Uploaded File</small>
+                      <?php endif ?>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex mb-5">
+                  <div class="flex-shrink-0">
+                    <button type="button" class="btn rounded-pill btn-icon btn-secondary me-2 btn-sm" disabled>
+                      <span class="tf-icons bx bxs-comment-detail"></span>
+                    </button>
+                  </div>
+                  <div class="flex-grow-1 row">
+                    <div class="col-9 mb-sm-0 mb-2">
+                      <h6 class="mb-0">Overtime Consent Form</h6>
+                      <small class="text-muted">Uploaded a signed Initial Individual Interview & Career Counseling for OJT?</small>
+                      <br>
+                      <small class="text-bold"><?= isset($preOjtRequirements['ocf']) ? $preOjtRequirements['ocf']['dateUploaded'] : '' ?></small>
+                    </div>
+                    <div class="col-3 text-end">
+                      <?php if (isset($preOjtRequirements) && isset($preOjtRequirements['ocf'])): ?>
+                        <?php if ($preOjtRequirements['ocf']['status'] > 20 ): ?>
+                          <span class="badge bg-label-danger"><?= $preOjtRequirements['ocf']['notes'] ?></span>
+                        <?php else: ?>
+                          <a href="_uploads/pre-ojt-requirements/<?= $preOjtRequirements['ocf']['filename'] ?>" class="btn btn-sm btn-info" target="_blank"><i class='bx bx-link' ></i> View</a>
+
+                          <?php if (!isset($studentOverview[1])): ?>
+                            <button type="button" class="btn btn-sm btn-danger preOJTModal" data-bs-toggle="modal" data-bs-target="#preOJTModal" data-id="<?= $preOjtRequirements['ocf']['reqId'] ?>"><i class='bx bx-rotate-left'></i> Return</button>
                           <?php endif ?>
 
                         <?php endif ?>

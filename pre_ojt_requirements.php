@@ -10,6 +10,7 @@ include 'public/base.php';
 
 <?php startblock('content') ?>
   <?php include('controller/ProfileController.php'); ?>
+  <?php include('public/toastr.php'); ?>
   <?php include('views/student/pre_requirements.php'); ?>
   <?php include('views/student/_notes.php'); ?>
 <?php endblock() ?>

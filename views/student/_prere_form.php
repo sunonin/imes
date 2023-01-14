@@ -47,7 +47,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['rsm'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['rsm']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['rsm']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -83,7 +83,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['elr'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['elr']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['elr']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -118,7 +118,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['acf'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['acf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['acf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -154,7 +154,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['iaf'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['iaf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['iaf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -190,7 +190,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['pcf'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['pcf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['pcf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -226,7 +226,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['rgf'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['rgf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['rgf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -262,7 +262,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['gmc'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['gmc']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['gmc']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -298,7 +298,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['moa'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['moa']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['moa']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -334,7 +334,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['otf'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['otf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['otf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -370,7 +370,7 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['sef'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['sef']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['sef']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
@@ -378,7 +378,7 @@
         </div>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex mb-3 custom-border">
         <div class="flex-shrink-0">
           <button type="button" class="btn rounded-pill btn-icon btn-secondary me-2 btn-sm" disabled>
             <span class="tf-icons bx bxs-comment-detail"></span>
@@ -406,13 +406,51 @@
           </div>
           <div class="col-2 text-end">
             <?php if (isset($preojt_reqs['iic'])): ?>
-              <a href="../../imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['iic']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['iic']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
             <?php else: ?>
               <small>No Uploaded file</small>
             <?php endif ?>
           </div>
         </div>
       </div>
+
+
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <button type="button" class="btn rounded-pill btn-icon btn-secondary me-2 btn-sm" disabled>
+            <span class="tf-icons bx bxs-comment-detail"></span>
+          </button>
+        </div>
+        <div class="flex-grow-1 row">
+          <div class="col-5 mb-sm-0 mb-2">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Overtime Consent Form</label> <small class="text-muted">(<mark> signed document </mark>)</small>
+              <?php if (!isset($studentOverview[1])): ?>
+                  <input class="form-control" type="file" id="formFile" name="attachment[ocf]">
+                <?php endif ?>
+            </div>
+          </div>
+          <div class="col-5 mb-2">
+            <?php if (isset($preojt_reqs['ocf']) && $preojt_reqs['ocf']['notes'] != ""): ?>
+              <small>
+                <div class="demo-inline-spacing">
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-danger"><?= $preojt_reqs['ocf']['notes'] ?></li>
+                  </ul>
+                </div>
+              </small>
+            <?php endif ?>
+          </div>
+          <div class="col-2 text-end">
+            <?php if (isset($preojt_reqs['ocf'])): ?>
+              <a href="imes-admin/_uploads/pre-ojt-requirements/<?= $preojt_reqs['ocf']['filename'] ?>" class="btn btn-sm btn-secondary" target="_blank"><i class='bx bx-link' ></i> View</a>
+            <?php else: ?>
+              <small>No Uploaded file</small>
+            <?php endif ?>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   <hr>

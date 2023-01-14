@@ -322,7 +322,8 @@ class ImesManager extends Connection {
                     tblschool_programs.ojt_hours,
                     (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours,
                     tblstudent_connection.comp_id,
-                    CONCAT(tblcompany.name, ' ', tblcompany.address) as compAddress
+                    CONCAT(tblcompany.name, ' ', tblcompany.address) as compAddress,
+                    tblcompany.name as compName
                 FROM tblprofile 
                 LEFT JOIN 
                     tblusers ON tblprofile.id = tblusers.user_id
@@ -418,6 +419,7 @@ class ImesManager extends Connection {
             'compId' => $profile['comp_id'],
             'fullCourse' => $profile['fullCourse'],
             'compAddress' => $profile['compAddress'],
+            'compName' => $profile['compName'],
         ];
 
         return json_encode($data);
@@ -597,6 +599,21 @@ class ImesManager extends Connection {
                 LEFT JOIN 
                     tblcompany ON tblcompany.id = tblstudent_connection.comp_id
                 WHERE tblstudent_connection.sid = ".$id;
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $company = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return json_encode($company);
+    }
+
+    public function fetchWorkSchedule($id=null) 
+    {
+        $data = [];
+        $qry = "SELECT 
+                    *
+                FROM tblstudent_workschedule
+                WHERE sid = ".$id;
         
         $stmt = $this->conn->prepare($qry);
         $stmt->execute();
@@ -871,9 +888,13 @@ class ImesManager extends Connection {
                     tblstudent_dtr.sid,
                     DATE_FORMAT(tblstudent_dtr.time_in, '%a. %b %d, %Y') AS dateFormat,
                     DATE_FORMAT(tblstudent_dtr.time_in, '%h:%i %p') AS timeInFormat,
+                    DATE_FORMAT(tblstudent_dtr.ot_in, '%h:%i %p') AS otInFormat,
                     DATE_FORMAT(tblstudent_dtr.time_in, '%Y-%m-%d %H:%i') AS timeInRaw,
+                    DATE_FORMAT(tblstudent_dtr.ot_in, '%Y-%m-%d %H:%i') AS otInRaw,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%h:%i %p') AS timeOutFormat,
+                    DATE_FORMAT(tblstudent_dtr.ot_out, '%h:%i %p') AS otOutFormat,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%m/%d/%Y %H:%i') AS timeOutRaw,
+                    DATE_FORMAT(tblstudent_dtr.ot_out, '%m/%d/%Y %H:%i') AS otOutRaw,
                     tblstudent_dtr.hours
                 FROM tblstudent_dtr
                 LEFT JOIN 
@@ -896,7 +917,10 @@ class ImesManager extends Connection {
                     DATE_FORMAT(tblstudent_dtr.time_in, '%a. %b %d, %Y') AS dateFormat,
                     DATE_FORMAT(tblstudent_dtr.time_in, '%h:%i %p') AS timeInFormat,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%h:%i %p') AS timeOutFormat,
+                    DATE_FORMAT(tblstudent_dtr.ot_in, '%h:%i %p') AS otInFormat,
+                    DATE_FORMAT(tblstudent_dtr.ot_out, '%h:%i %p') AS otOutFormat,
                     tblstudent_dtr.hours
+                    tblstudent_dtr.ot_hours
                 FROM tblstudent_dtr
                 LEFT JOIN 
                     tblprofile ON tblprofile.id = tblstudent_dtr.sid
@@ -924,7 +948,12 @@ class ImesManager extends Connection {
                     DATE_FORMAT(tblstudent_dtr.time_in, '%Y-%m-%d %H:%i') AS timeInRaw,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%h:%i %p') AS timeOutFormat,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%m/%d/%Y %H:%i') AS timeOutRaw,
-                    tblstudent_dtr.hours
+                    DATE_FORMAT(tblstudent_dtr.ot_in, '%h:%i %p') AS otInFormat,
+                    DATE_FORMAT(tblstudent_dtr.ot_out, '%h:%i %p') AS otOutFormat,
+                    tblstudent_dtr.hours,
+                    tblstudent_dtr.ot_hours,
+                    tblstudent_dtr.am_status,
+                    tblstudent_dtr.pm_status
                 FROM tblstudent_dtr
                 LEFT JOIN 
                     tblprofile ON tblprofile.id = tblstudent_dtr.sid
@@ -1322,7 +1351,9 @@ class ImesManager extends Connection {
         $array = [];
         $qry = "SELECT 
                     tblstudent_journal.title,
-                    DATE_FORMAT(tblstudent_journal.start_date, '%d %b') as start_date,
+                    DATE_FORMAT(tblstudent_journal.start_date, '%M %d, %Y') as start_date,
+                    DATE_FORMAT(tblstudent_journal.start_date, '%M %d') as start_dateF,
+                    DATE_FORMAT(tblstudent_journal.start_date, '%W') as day_format,
                     DATE_FORMAT(tblstudent_journal.end_date, '%d %b') as end_date,
                     CASE  
                         WHEN tblstudent_journal.status = 1 THEN 'On-Going' 
@@ -1339,10 +1370,34 @@ class ImesManager extends Connection {
         foreach ($results as $result) {
             $array[] = [
                 'start_date'    => $result['start_date'],
+                'start_dateF'   => $result['start_dateF'],
+                'day_format'    => $result['day_format'],
                 'end_date'      => $result['end_date'],
                 'title'         => $result['title'],
                 'status'        => $result['status'],
             ];
+        }
+
+        return json_encode($array);
+    }
+
+    public function fetchDtrList($data) 
+    {
+        $array = [];
+        $qry = "SELECT 
+                    DATE_FORMAT(tblstudent_dtr.time_in, '%M %d, %Y') as start_date,
+                    tblstudent_dtr.hours,
+                    tblstudent_dtr.ot_hours
+                FROM tblstudent_dtr 
+                WHERE tblstudent_dtr.sid = ".$data['id']." AND tblstudent_dtr.time_in BETWEEN '".$data['dateFrom']."' AND '".$data['dateTo']."'";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($results as $result) {
+            $ot_hrs = !empty($result['ot_hours']) ? $result['ot_hours'] : 0;
+            $array[$result['start_date']] = $result['hours'] + $ot_hrs;
         }
 
         return json_encode($array);

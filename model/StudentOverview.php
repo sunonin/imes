@@ -184,16 +184,12 @@ class StudentOverview extends Connection
 
     public function save()
     {
-        $qry = "INSERT INTO tblstudent_overview SET sid =:sid, type_id =:type_id, remarks =:remarks, rate =:rate, evaluated_by =:evaluated_by, date_created =:date_created, date_updated =:date_updated";
+        $qry = "INSERT INTO tblstudent_overview SET sid =:sid, start =:start, end =:end";
         
         $stmt = $this->conn->prepare($qry);
         $stmt->bindParam('sid', $this->sid);
-        $stmt->bindParam('type_id', $this->type_id);
-        $stmt->bindParam('remarks', $this->remarks);
-        $stmt->bindParam('rate', $this->final_rate);
-        $stmt->bindParam('evaluated_by', $this->evaluated_by);
-        $stmt->bindParam('date_created', $this->date_created);
-        $stmt->bindParam('date_updated', $this->date_updated);
+        $stmt->bindParam('start', $this->start);
+        $stmt->bindParam('end', $this->end);
         
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();

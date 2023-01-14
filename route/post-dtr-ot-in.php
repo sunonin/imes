@@ -8,31 +8,25 @@ require_once '../imes-admin/model/StudentWorkSchedule.php';
 require_once '../manager/ImesManager.php';
 require_once '../model/Notification.php';
 
+
 $imes = new ImesManager;
 
-$id = $_SESSION['user']['id'];
+$id = $_POST['id'];
 
-$sched = new StudentWorkSchedule;
-$asd = $sched->find($id);
-
-$today = date('Y-m-d');
-$startTime = date('Y-m-d H:i:s', strtotime($today .' '. $asd['start']));
-$status = 'on-time';
-
-if (date('Y-m-d H:i:s') > $startTime) {
-	$status = 'late';
-}
+$dd = json_decode($imes->fetchDailyTimeRecordLimit($id), 2);
+$as = date('H:i');
+$hours = round((strtotime($as) - strtotime($dd['timeInRaw']))/3600, 1);
 
 $dtr = new DailyTimeRecord;
-$dtr->setStudentId($id);
-$dtr->setTimeIn(date('Y-m-d H:i:s'));
-$dtr->setStatus($status);
+$dtr->setDailyTimeRecord($id);
+$dtr->setOtTimeIn(date('Y-m-d H:i:s'));
+// $dtr->setOtHours($hours);
 
-$dtr->save();
+$dtr->updateOvertimeIn();
 
 $notif = new Notification;
 $notif->setUserId($dtr->id);
-$notif->setMessage('Daily Time Record has been updated.');
+$notif->setMessage('Overtime Record has been updated.');
 $notif->setType('success');
 $notif->setHeader('Success');
 $notif->setCreatedAt(date('Y-m-d'));

@@ -102,49 +102,93 @@
             </div>
           </div>
 
-          <?php if (isset($studentOverview[1]) && (isset($companyConnected) && !empty($companyConnected))): ?>
+          <?php if (isset($studentOverview[1]) && (isset($companyConnected) && !empty($companyConnected)) && (isset($workSched) && !empty($workSched))): ?>
             <div class="row mb-3">
-            <div class="col-md-12">
-              <table class="table table-bordered">
-                <tbody>
-                  <tr>
-                    <td style="background-color: #b9b5b5; color: white;"><b>AM - Time In</b></td>
-                    <td>
+              <div class="col-md-12">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td style="background-color: #b9b5b5; color: white;"><b>AM - Time In</b></td>
+                      <td>
 
-                      <?php if ($dtr['timeInFormat'] == ""): ?>
-                        <div class="button-wrapper">
-                          <button type="button" id="timeInAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
-                        </div>
-                      <?php else: ?>
-                        <input type="hidden" name="timeInRaw" value="<?= $dtr['timeInRaw'] ?>">
-                        <?= $dtr['timeInFormat'] ?>    
-                      <?php endif ?>
+                        <?php if ($dtr['timeInFormat'] == ""): ?>
+                          <div class="button-wrapper">
+                            <button type="button" id="timeInAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
+                          </div>
+                        <?php else: ?>
+                          <input type="hidden" name="timeInRaw" value="<?= $dtr['timeInRaw'] ?>">
+                          <?= $dtr['timeInFormat'] ?>    
+                        <?php endif ?>
 
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="background-color: #b9b5b5; color: white;"><b>PM - Time Out</b></td>
-                    <td>
-                      <?php if ($dtr['timeOutFormat'] == "" && (!empty($dtr['timeInFormat']))): ?>
-                        <div class="button-wrapper">
-                          <button type="button" id="timeOutAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
-                        </div>
-                      <?php else: ?>
-                        <?= $dtr['timeOutFormat'] ?>
-                      <?php endif ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="background-color: #b9b5b5; color: white;"><b>PM - Time Out</b></td>
+                      <td>
+                        <?php if ($dtr['timeOutFormat'] == "" && (!empty($dtr['timeInFormat']))): ?>
+                          <div class="button-wrapper">
+                            <button type="button" id="timeOutAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
+                          </div>
+                        <?php else: ?>
+                          <?= $dtr['timeOutFormat'] ?>
+                        <?php endif ?>
 
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="background-color: #b9b5b5; color: white;"><b>Hours</b></td>
-                    <td>
-                      <?= $dtr['hours'] ?>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="background-color: #b9b5b5; color: white;"><b>Hours</b></td>
+                      <td>
+                        <?= $dtr['hours'] ?>
+                      </td>
+                    </tr>
+
+                    <?php if (!empty($dtr['timeInFormat']) && !empty($dtr['timeOutFormat']) && $dtr['pm_status'] != "early-out"): ?>
+                      <tr>
+                        <td style="background-color: #87185e; color: white;"><b>Overtime - Time In</b></td>
+                        <td>
+                          <?php if ($dtr['otInFormat'] == "" && (!empty($dtr['timeOutFormat']))): ?>
+                            <div class="button-wrapper">
+                              <button type="button" id="otInAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
+                            </div>
+                          <?php else: ?>
+                            <?= $dtr['otInFormat'] ?>
+                          <?php endif ?>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color: #87185e; color: white;"><b>Overtime - Time Out</b></td>
+                        <td>
+                          <?php if ($dtr['otOutFormat'] == "" && (!empty($dtr['otInFormat']))): ?>
+                            <div class="button-wrapper">
+                              <button type="button" id="otOutAction" class="btn btn-primary btn me-2"><i class='bx bxs-check-circle'></i> <span class="customTimer"></span> Stamp</button>
+                            </div>
+                          <?php else: ?>
+                            <?= $dtr['otOutFormat'] ?>
+                          <?php endif ?>
+
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="background-color: #87185e; color: white;"><b>Hours</b></td>
+                        <td>
+                          <?= $dtr['ot_hours'] ?>
+                        </td>
+                      </tr>  
+                    <?php endif ?>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          <?php else: ?>
+            <div class="row">
+              <div class="col-md-12">
+                <span class="badge bg-label-warning">Lagay kayo ng instructions dito</span>
+              </div>
+              
+            </div>
           <?php endif ?>
           
         </div>

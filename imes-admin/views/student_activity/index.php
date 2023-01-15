@@ -109,7 +109,11 @@
                 <span class="badge bg-label-primary me-1"><?= $student['reqHours'] ?></span>
               </td>
               <td class="text-center">
-                <span class="badge bg-label-success me-1"><?= $student['compHours'] ?></span>
+                <?php if ($student['compHours'] >= $student['reqHours']): ?>
+                  <span class="badge bg-label-success me-1"><?= $student['compHours'] ?></span>
+                <?php else: ?>
+                  <span class="badge bg-label-danger me-1"><?= $student['compHours'] ?></span>
+                <?php endif ?>
               </td>
               <td class="text-center">
                 <div>

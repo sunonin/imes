@@ -28,6 +28,8 @@
   </div>
   <div class="mb-3">
     <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="showpassword" onclick="myFunction()"/>
+      <label class="form-check-label" for="showpassword"> Show Password</label>
     </div>
   </div>
   <div class="mb-3">

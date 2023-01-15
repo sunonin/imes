@@ -111,33 +111,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="table-responsive text-nowrap">
-          <table class="table text-nowrap">
-            <thead>
-              <tr>
-                <th class="text-center" width="15%">Total Students</th>
-                <th class="text-center">Students w/ Pre-OJT Requirements</th>
-                <th class="text-center">Students w/ Post-OJT Requirements</th>
-              </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-              <tr>
-                  <td class="text-center" style="font-size: 20px;"><?= number_format($totalRegisteredStudents, 0) ?></td>
-                  <td class="text-center" style="font-size: 20px;">
-                    <?= number_format($totalPreRequirements, 0) ?>  
-                  </td>
-                  <td class="text-center" style="font-size: 20px;">
-                    <?= number_format($totalPostRequirements, 0) ?>
-                  </td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   
 </div>

@@ -47,7 +47,7 @@ class ImesManager extends Connection {
         return $data;
 	}
 
-    public function fetchRegisteredUsers($type=null) 
+    public function fetchRegisteredUsers($type=null, $year=null) 
     {
         $data = [];
         $qry = "SELECT 
@@ -71,6 +71,10 @@ class ImesManager extends Connection {
             $qry .= " WHERE r.id = 3";
         } else if ($type == 4) {
             $qry .= " WHERE r.id = 2";
+        }
+
+        if ($year != null) {
+            $qry .= " AND p.school_year = '".$year."' ";
         }
 
         $qry .= " ORDER BY p.id ASC";
@@ -116,7 +120,8 @@ class ImesManager extends Connection {
                     up.id AS ojt_coordinator,
                     up.mobile AS schoolCoordinatorNo,
                     hp.id AS ojt_head,
-                    hp.mobile AS schoolHeadNo
+                    hp.mobile AS schoolHeadNo,
+                    tblprofile.school_year AS schoolYear
                 FROM tblprofile
                 LEFT JOIN tblusers ON tblprofile.id = tblusers.user_id
                 LEFT JOIN tblavatar ON tblavatar.user_id = tblprofile.id
@@ -238,6 +243,70 @@ class ImesManager extends Connection {
         return json_encode($data);
     }
 
+    public function fetchCompaniesTwo($id=null) 
+    {
+        $data = [];
+        // $qry = "SELECT 
+        //             c.id,
+        //             c.name AS compName,
+        //             c.type AS compType,
+        //             c.address AS compAddress,
+        //             c.email AS compEmail,
+        //             c.phone AS compPhone,
+        //             CONCAT(p.fname, ' ', p.lname) AS supervisor,
+        //             s.position AS supPosition,
+        //             al.id as alid,
+        //             SUM(tblstudent_connection.comp_id) AS total_stud
+        //         FROM 
+        //             tblcompany c
+        //         LEFT JOIN 
+        //             tblsupervisors s ON s.company_id = c.id
+        //         LEFT JOIN 
+        //             tblprofile p ON p.id = s.supervisor_id
+        //         LEFT JOIN 
+        //             tblstudent_connection ON tblstudent_connection.comp_id = c.id
+        //         LEFT JOIN 
+        //             tblassessment_links al ON al.comp_id = c.id AND al.is_done = false";
+
+
+        $qry = "SELECT
+                    tblcompany.id,
+                    tblcompany.name AS compName,
+                    tblcompany.type AS compType,
+                    tblcompany.address AS compAddress,
+                    tblcompany.email AS compEmail,
+                    tblcompany.phone AS compPhone,
+                    COUNT(tblcompany.id) AS total_stud
+                FROM
+                    tblstudent_connection
+                INNER JOIN 
+                    tblcompany ON tblcompany.id = tblstudent_connection.comp_id";
+
+
+        $qry.= " GROUP BY tblstudent_connection.comp_id";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($companies as $company) {
+            $checker = false;
+            if ($this->fetchForAssessment($company['id'])) {
+                $checker = true;
+            }
+
+            $data[] = [
+                'id'          => $company['id'],
+                'name'        => $company['compName'],
+                'type'        => $company['compType'] == 1 ? 'Private' : 'Government',
+                'address'     => $company['compAddress'],
+                'stud_count'  => $company['total_stud']  
+            ];
+        }
+
+        return json_encode($data);
+    }
+
     public function fetchCompany($id=null) 
     {
         $data = [];
@@ -312,7 +381,8 @@ class ImesManager extends Connection {
                     tblschool_programs.code AS program,
                     tblschool_programs.major,
                     tblschool_programs.ojt_hours,
-                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours
+                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours,
+                    tblprofile.school_year
                 FROM 
                     tblprofile 
                 LEFT JOIN 
@@ -348,6 +418,7 @@ class ImesManager extends Connection {
                 'status'    => $profile['status'],
                 'program'   => $profile['program'],
                 'major'     => $profile['major'],
+                'school_year'     => $profile['school_year'],
                 'role'      => !empty($profile['role']) ? $profile['role'] : 'No role',
                 'reqHours'  => $profile['ojt_hours'],
                 'compHours' => number_format($profile['completedHours'], 2),
@@ -357,7 +428,7 @@ class ImesManager extends Connection {
         return json_encode($data);
     }
 
-    public function fetchStudents2($program=null,$section=null,$name=null) 
+    public function fetchStudents2($program=null,$section=null,$name=null,$year=null,$company=null) 
     {
         $data = [];
         $qry = "SELECT 
@@ -373,7 +444,9 @@ class ImesManager extends Connection {
                     tblschool_programs.code AS program,
                     tblschool_programs.major,
                     tblschool_programs.ojt_hours,
-                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours
+                    (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours,
+                    tblprofile.school_year,
+                    tblcompany.name AS comp_name
                 FROM 
                     tblprofile 
                 LEFT JOIN 
@@ -384,6 +457,10 @@ class ImesManager extends Connection {
                     tblschool_information ON tblprofile.id = tblschool_information.uid
                 LEFT JOIN 
                     tblschool_programs ON tblschool_information.program = tblschool_programs.id
+                LEFT JOIN 
+                    tblstudent_connection ON tblstudent_connection.sid = tblusers.user_id
+                LEFT JOIN 
+                    tblcompany ON tblcompany.id = tblstudent_connection.comp_id
                 WHERE 
                     tblprofile.role = 4 AND tblschool_information.uid IS NOT NULL";
 
@@ -399,6 +476,14 @@ class ImesManager extends Connection {
             $qry .= " AND tblprofile.lname LIKE '%".$name."%'";
             $qry .= " OR tblprofile.fname LIKE '%".$name."%'";
             $qry .= " OR tblprofile.mname LIKE '%".$name."%'";
+        }
+
+        if (!empty($year) && $year != "") {
+            $qry .= " AND tblprofile.school_year = '".$year."'";
+        }
+
+        if (!empty($company) && $company != "") {
+            $qry .= " AND tblstudent_connection.comp_id = ".$company;
         }
 
         $qry .= " ORDER BY tblschool_programs.id, tblprofile.section, tblprofile.lname";
@@ -418,6 +503,8 @@ class ImesManager extends Connection {
                 'username'  => $profile['username'],
                 'status'    => $profile['status'],
                 'program'   => $profile['program'],
+                'comp_name'   => $profile['comp_name'],
+                'school_year'   => $profile['school_year'],
                 'gender'    => $profile['gender'] == "f" ? "Female" : "Male",
                 'major'     => $profile['major'],
                 'role'      => !empty($profile['role']) ? $profile['role'] : 'No role',

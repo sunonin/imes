@@ -10,3 +10,19 @@ include 'public/base.php';
   <?php include('controller/DashboardController.php'); ?>
   <?php include('views/dashboard/index.php'); ?>
 <?php endblock() ?>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+    $('#school_year').on('change', function(){
+      let ss = $(this).val();
+      let path = 'route/get-student-count.php?sy='+ss;
+
+      $.get(path, function(result){
+        $('.ttl-students').html(result);
+      })
+
+    });
+
+  })
+</script>

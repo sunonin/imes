@@ -33,13 +33,14 @@ if (isset($_GET['id'])) {
 
 }
 
+$filterSchoolYear = isset($_GET['filterSchoolYear']) ? $_GET['filterSchoolYear'] : '';
 $filterPrograms = isset($_GET['filterProgram']) ? $_GET['filterProgram'] : '';
 $filterSections = isset($_GET['filterSection']) ? $_GET['filterSection'] : '';
 $filterNames = isset($_GET['filterName']) ? $_GET['filterName'] : '';
 
-if (isset($_GET['filterProgram']) || isset($_GET['filterSection']) || isset($_GET['filterName'])) {
+if (isset($_GET['filterSchoolYear']) || isset($_GET['filterProgram']) || isset($_GET['filterSection']) || isset($_GET['filterName'])) {
 	$section_opts = json_decode($imes->fetchProgramOpts2($filterPrograms), true);
-	$students = json_decode($imes->fetchStudents2($filterPrograms, $filterSections, $filterNames), true);
+	$students = json_decode($imes->fetchStudents2($filterPrograms, $filterSections, $filterNames, $filterSchoolYear), true);
 }
 
 

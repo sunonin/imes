@@ -21,6 +21,7 @@ class Profile extends Connection
     public $updated_at = '';
     public $section = '';
     public $req = '';
+    public $schoolYear = '';
 
 
 
@@ -210,6 +211,16 @@ class Profile extends Connection
         return $this->req;
     }
 
+    public function setSchoolYear($schoolYear) 
+    {
+        return $this->schoolYear = $schoolYear;
+    }
+
+    public function getSchoolYear()
+    {
+        return $this->schoolYear;
+    }
+
     public function save()
     {
         $qry = "INSERT INTO tblprofile SET lname =:lname, fname =:fname, mname =:mname, extn_name =:extn_name, birth_date =:birth_date, exact_address =:exact_address, email =:email, mobile =:mobile, gender =:gender, province =:province, citymun =:citymun, created_at =:created_at";
@@ -294,12 +305,13 @@ class Profile extends Connection
 
     public function updateSection()
     {
-        $qry = "UPDATE tblprofile SET section =:section, updated_at =:updated_at WHERE id =:id";
+        $qry = "UPDATE tblprofile SET section =:section, updated_at =:updated_at, school_year =:schoolYear WHERE id =:id";
         
         $stmt = $this->conn->prepare($qry);
         $stmt->bindParam('id', $this->id);
         $stmt->bindParam('section', $this->section);
         $stmt->bindParam('updated_at', $this->updated_at);
+        $stmt->bindParam('schoolYear', $this->schoolYear);
         
         if ($stmt->execute()) {
             return true;

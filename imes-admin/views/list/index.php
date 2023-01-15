@@ -1,14 +1,3 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card bg-info text-white mb-3">
-      <div class="card-body">
-        <h5 class="card-title text-white">Info:</h5>
-          To generate export file, select first from filters <b>PROGRAM</b> or <b>SECTION</b> then click filter. Generate button will appear then click Generate to export list.
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="card mb-3">
   <div class="card-header">
     Filters
@@ -22,6 +11,20 @@
               <option value="" selected disabled>-- School Year --</option>
               <option value="2023" <?= isset($_GET['filterSchoolYear']) ? ($_GET['filterSchoolYear'] == 2023 ? 'selected' : '') : '' ; ?>>2023</option>
               <option value="2022" <?= isset($_GET['filterSchoolYear']) ? ($_GET['filterSchoolYear'] == 2022 ? 'selected' : '') : '' ; ?>>2022</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label" for="filterCompany">Company</label>
+            <select id="filterCompany" name="filterCompany" class="select2 form-select">
+              <option value="" selected disabled>-- Company --</option>
+              <?php foreach ($companies as $key => $comp): ?>
+                <?php if (!empty($_GET['filterCompany']) && ($_GET['filterCompany'] == $comp['id'])): ?>
+                  <option value="<?= $comp['id'] ?>" selected><?= $comp['name'] ?></option>
+                <?php else: ?>  
+                  <option value="<?= $comp['id'] ?>"><?= $comp['name'] ?></option>
+                <?php endif ?>
+              <?php endforeach ?>
             </select>
         </div>
 
@@ -53,10 +56,6 @@
             </select>
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label" for="filterName">Name</label>
-          <input type="text" class="form-control" id="filterName" name="filterName" value="<?= !empty($_GET['filterName']) ? $_GET['filterName'] : '' ?>" placeholder="Name" />
-        </div>
       </div>
 
       <div class="row">
@@ -66,23 +65,16 @@
                 <i class="bx bxs-check-square d-block d-sm-none"></i>
                 <span class="d-none d-sm-block">Filter</span>
               </button>
-              <a href="student_activity.php" class="btn btn-secondary btn-md">
+              <a href="list-of-students.php" class="btn btn-secondary btn-md">
                 <i class="bx bxs-check-square d-block d-sm-none"></i>
                 <span class="d-none d-sm-block">Cancel</span>
               </a>
-              <?php if (isset($_GET['filterProgram']) || isset($_GET['filterSection'])): ?>
-                <a href="route/generate-student-list.php?program=<?= isset($_GET['filterProgram']) ? $_GET['filterProgram'] : "" ?>&section=<?= isset($_GET['filterSection']) ? $_GET['filterSection'] : "" ?>" class="btn btn-secondary btn-md">
-                  <i class="bx bxs-check-square d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Generate</span>
-                </a>              
-              <?php endif ?>
             </div>
         </div>
       </div>
     </form>
   </div>
 </div>
-
 
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
@@ -96,13 +88,11 @@
         <thead>
           <tr>
             <th class="text-center">#</th>
-            <th class="text-center">School Year</th>
+            <th class="text-center">S.Y</th>
             <th class="text-center">Program</th>
-            <th class="text-center">Major</th>
             <th class="text-center">Section</th>
             <th class="text-center">Name</th>
-            <th class="text-center">Required Hours</th>
-            <th class="text-center">Completed Hours</th>
+            <th class="text-center">Company</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -111,24 +101,13 @@
             <tr>
               <td><?= $key+1 ?></td>
               <td class="text-center"><?= $student['school_year'] ?></td>
-              <td class="text-center"><?= $student['program'] ?></td>
-              <td class="text-center"><?= $student['major'] ?></td>
+              <td class="text-center"><?= $student['program'] .' - '. $student['major'] ?></td>
               <td class="text-center"><?= $student['section'] ?></td>
               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $student['fullname'] ?></strong></td>
-              
-              <td class="text-center">
-                <span class="badge bg-label-primary me-1"><?= $student['reqHours'] ?></span>
-              </td>
-              <td class="text-center">
-                <?php if ($student['compHours'] >= $student['reqHours']): ?>
-                  <span class="badge bg-label-success me-1"><?= $student['compHours'] ?></span>
-                <?php else: ?>
-                  <span class="badge bg-label-danger me-1"><?= $student['compHours'] ?></span>
-                <?php endif ?>
-              </td>
+              <td><?= $student['comp_name'] ?></td>
               <td class="text-center">
                 <div>
-                  <a href="student_view.php?id=<?= $student['id'] ?>&j" type="button" class="btn btn-outline-primary btn-sm" title="Edit">
+                  <a href="user_edit.php?id=<?= $student['id'] ?>" type="button" class="btn btn-outline-primary btn-sm" title="Edit">
                     <span class="tf-icons bx bxs-folder-open"></span> View
                   </a>
                 </div>

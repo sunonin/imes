@@ -341,4 +341,19 @@ class Profile extends Connection
             return false;
         }
     }
+
+    public function updateSchoolYear($year)
+    {
+        $qry = "UPDATE tblprofile SET school_year =:school_year WHERE id =:userid";
+        $stmt = $this->conn->prepare($qry);
+
+        $stmt->bindParam('school_year', $year);
+        $stmt->bindParam('userid', $this->id);
+
+        if ($stmt->execute()) {
+            return $this->id;
+        } else {
+            return false;
+        }
+    }
 }

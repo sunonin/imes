@@ -345,7 +345,8 @@ class ImesManager extends Connection {
                     (SELECT SUM(hours) FROM tblstudent_dtr WHERE tblstudent_dtr.sid = tblprofile.id) AS completedHours,
                     tblstudent_connection.comp_id,
                     CONCAT(tblcompany.name, ' ', tblcompany.address) as compAddress,
-                    tblcompany.name as compName
+                    tblcompany.name as compName,
+                    tblprofile.school_year
                 FROM tblprofile 
                 LEFT JOIN 
                     tblusers ON tblprofile.id = tblusers.user_id
@@ -442,6 +443,7 @@ class ImesManager extends Connection {
             'fullCourse' => $profile['fullCourse'],
             'compAddress' => $profile['compAddress'],
             'compName' => $profile['compName'],
+            'school_year' => $profile['school_year'],
         ];
 
         return json_encode($data);

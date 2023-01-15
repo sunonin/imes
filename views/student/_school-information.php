@@ -10,6 +10,10 @@
           <label for="section" class="form-label">Section</label>
           <input class="form-control" type="text" id="section" name="section" value="<?= $student['section'] ?>" placeholder = "Section"/>
         </div>
+        <div class="col-md-6">
+          <label for="section" class="form-label">School Year</label>
+          <input class="form-control" type="text" id="school_year" name="school_year" value="<?= $student['school_year'] ?>" placeholder = "Section"/>
+        </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-7">

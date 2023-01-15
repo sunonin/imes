@@ -15,6 +15,7 @@ if ($method == 'POST') {
 
 	// SCHOOL DETAILS
 	$userId = isset($_POST['userId']) ? $_POST['userId'] : '';
+	$schoolYear = isset($_POST['school_year']) ? $_POST['school_year'] : '';
 	$schoolSection = isset($_POST['schoolSection']) ? $_POST['schoolSection'] : '';
 	$schoolProgram = isset($_POST['schoolProgram']) ? $_POST['schoolProgram'] : '';
 	$schoolCoordinator = isset($_POST['schoolCoordinator']) ? $_POST['schoolCoordinator'] : '';
@@ -24,6 +25,7 @@ if ($method == 'POST') {
 	$profile->setUserID($userId);
 	$profile->setSection($schoolSection);
 	$profile->setUpdatedAt(date('Y-m-d'));
+	$profile->setSchoolYear($schoolYear);
 	$profile->updateSection();
 	
 	$school = new SchoolInformation();

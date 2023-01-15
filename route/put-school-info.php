@@ -15,10 +15,15 @@ if ($method == 'POST') {
 
 	// SCHOOL DETAILS
 	$userId = isset($_POST['userId']) ? $_POST['userId'] : '';
+	$schoolYear = isset($_POST['school_year']) ? $_POST['school_year'] : '';
 	$section = isset($_POST['section']) ? $_POST['section'] : '';
 	$schoolProgram = isset($_POST['schoolProgram']) ? $_POST['schoolProgram'] : '';
 	$schoolCoordinator = isset($_POST['schoolCoordinator']) ? $_POST['schoolCoordinator'] : '';
 	$schoolHead = isset($_POST['schoolHead']) ? $_POST['schoolHead'] : '';
+
+	$profile = new Profile;
+	$profile->setUserID($userId);
+	$profile->updateSchoolYear($schoolYear);
 	
 	$school = new SchoolInformation();
 	$school->setUserId($userId);

@@ -24,6 +24,7 @@
           <h5 class="card-header"><i class='bx bx-list-plus'></i> School Information</h5>
 
           <div class="card-body">
+
             <div class="row">
               <div class="col-md-5">
                   <div class="mb-3">
@@ -110,8 +111,10 @@
               <div class="col-md-6">
                 <div class="col-md-10">
                   <div class="mb-3">
-                    <label class="form-label" for="schoolYear">Year</label>
-                    <input type="text" class="form-control" id="schoolYear" name="schoolYear" readonly value="<?= !empty($profile) ? $profile['year_level'] : '' ?>" placeholder="Year" />
+                    <!-- <label class="form-label" for="schoolYear">Year</label>
+                    <input type="text" class="form-control" id="schoolYear" name="schoolYear" readonly value="<?= !empty($profile) ? $profile['year_level'] : '' ?>" placeholder="Year" /> -->
+                    <label class="form-label" for="school_year">School Year</label>
+                    <input type="text" class="form-control" id="school_year" name="school_year" value="<?= !empty($profile) ? $profile['schoolYear'] : '' ?>" placeholder="School Year" />
                   </div>
                 </div>
 

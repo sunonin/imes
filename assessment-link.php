@@ -11,6 +11,7 @@ include 'public/assessment.php';
 
 <?php startblock('content') ?>
   <?php include('controller/AssessmentLinkController.php'); ?>
+  <?php include('public/toastr.php'); ?>
   <?php include('views/assessment/index.php'); ?>
 <?php endblock() ?>
 
@@ -45,10 +46,25 @@ include 'public/assessment.php';
     $("#schoolDepartment").val(e.department);
     $("#schoolDean").val(e.dean);
     $("#schoolDeanNo").val(e.dean_phone);
-
   }
 
+  function getTotalPoints() {
+    let total = 0;
+    $('#tbody-appraisal > tr .form-check-input:checked').each(function (i, e) {
+      if($(this).is(':checked'))
+        total = parseInt(total) + parseInt($(this).val());
+    });
+
+    $('#finalRate').val(total);
+    return total;
+  }
+
+
   $(document).ready(function(){
+
+    $(document).on('change', '.form-check-input', function(e){
+      getTotalPoints();
+    });
 
     $(document).on('click', '#btn-delete-user', function(e){
       let id = $(this).data('id');

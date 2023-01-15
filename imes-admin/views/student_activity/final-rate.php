@@ -72,7 +72,17 @@
                     </div>
                   </div>
                 </div>
-              
+                <hr>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                        <a href="route/generate-appraisal-form.php?sid=<?= $_GET['id'] ?>" class="btn btn-primary btn-md">
+                          <i class="bx bxs-check-square d-block d-sm-none"></i>
+                          <span class="d-none d-sm-block"><i class='bx bxs-file-pdf'></i> Generate Appraisal Form</span>
+                        </a>
+                      </div>
+                  </div>
+                </div>
               
 
             </div>

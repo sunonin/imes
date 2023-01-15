@@ -17,6 +17,7 @@ $province_opts = $imes->fetchProvinces();
 $program_opts = json_decode($imes->fetchProgramOpts(), true);
 $schoolDetails = json_decode($imes->fetchSchoolInfo(), true);	
 $supervisor_opts = json_decode($imes->fetchSupervisorss('', 2), true);
+$appriasal_criterias = json_decode($imes->fetchAppraisalCriteria(), true);
 
 if (isset($_GET['id']) && isset($_GET['comp'])) {
 	$status = json_decode($imes->fetchAssessmentLink($_GET['id'], $_GET['comp']), true);

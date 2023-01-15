@@ -1305,4 +1305,44 @@ class ImesManager extends Connection {
         return $data;
     }
 
+    public function fetchAppraisalCriteria() 
+    {
+        $data = [];
+        $qry = "SELECT 
+                    *
+                FROM tblappraisal_criteria";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($profiles as $profile) {
+            $data[$profile['parent_id']][] = [
+                'id'     => $profile['id'],
+                'order'  => $profile['order'],
+                'name'   => $profile['name'],
+            ];
+        }
+
+        return json_encode($data);
+    }
+
+    public function fetchStudentAppraisal($id) 
+    {
+        $data = [];
+        $qry = "SELECT 
+                    *
+                FROM tblappraisal WHERE sid = $id";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($profiles as $profile) {
+            $data[$profile['criteria']] = $profile['rate'];
+        }
+
+        return json_encode($data);
+    }
+
 }

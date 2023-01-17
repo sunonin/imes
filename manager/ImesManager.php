@@ -864,7 +864,9 @@ class ImesManager extends Connection {
                     DATE_FORMAT(tblstudent_dtr.time_in, '%a. %b %d, %Y') AS dateFormat,
                     DATE_FORMAT(tblstudent_dtr.time_in, '%h:%i %p') AS timeInFormat,
                     DATE_FORMAT(tblstudent_dtr.time_out, '%h:%i %p') AS timeOutFormat,
-                    tblstudent_dtr.hours
+                    tblstudent_dtr.hours,
+                    tblstudent_dtr.am_status,
+                    tblstudent_dtr.pm_status
                 FROM tblstudent_dtr
                 LEFT JOIN 
                     tblprofile ON tblprofile.id = tblstudent_dtr.sid

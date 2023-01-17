@@ -13,7 +13,7 @@ $imes = new ImesManager();
 $students = json_decode($imes->fetchStudents(), true);
 $companies = json_decode($imes->fetchCompanies(), true);
 $program_opts = json_decode($imes->fetchProgramOpts(), true);
-$section_opts = [];
+$section_opts = $studentDtrs = [];
 
 if (isset($_GET['id'])) {
 	$student = json_decode($imes->fetchStudent($_GET['id']), true);
@@ -27,6 +27,8 @@ if (isset($_GET['id'])) {
 	$journals = json_decode($imes->fetchJournals($_GET['id']), true);
 	$journals_completed = json_decode($imes->fetchJournalsCompleted($_GET['id']), true);
 	$journal_count = count($journals);
+
+	$studentDtrs = json_decode($imes->fetchDailyTimeRecord($_GET['id']), true);
 
 	$cc = count($preOjtRequirements);
     $preOjtRequirementsPercentage = ($cc / 11) * 100;

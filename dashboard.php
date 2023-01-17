@@ -11,6 +11,7 @@ include 'public/base.php';
   <?php include('controller/ProfileInitController.php'); ?>
   <?php include('public/toastr.php'); ?>
   <?php include('views/student/index.php'); ?>
+  <?php include('views/student/_absent-form.php'); ?>
 <?php endblock() ?>
 
 <?php include('views/student/app.css'); ?>
@@ -105,7 +106,5 @@ include 'public/base.php';
 
       });
     });
-
-
   })
 </script>

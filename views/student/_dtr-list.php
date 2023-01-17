@@ -14,6 +14,7 @@
             <th class="text-center">Time In</th>
             <th class="text-center">Time Out</th>
             <th class="text-center">Hours</th>
+            <th class="text-center">Status</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -23,11 +24,18 @@
               <td>
                 <i class="fab fa-angular fa-lg text-danger me-3"></i> <small><strong><?= $dtr['dateFormat'] ?></strong></small>
               </td>
-              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <small><strong><?= $dtr['timeInFormat'] ?></strong></small></td>
+              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <small><strong><?= $dtr['am_status'] != "absent" ? $dtr['timeInFormat'] : '' ?></strong></small></td>
               <td>
                 <small><strong><?= $dtr['timeOutFormat'] ?></strong></small>
               </td>
               <td style="word-wrap: break-word;min-width: 35%;max-width: 35%; white-space: normal !important; ">  <?= $dtr['hours'] ?>
+              </td>
+              <td>
+                <?php if ($dtr['pm_status'] != ""): ?>
+                  <?php echo $dtr['am_status'].' & '.$dtr['pm_status'] ?>
+                <?php else: ?>
+                  <?php echo $dtr['am_status']; ?>
+                <?php endif ?>
               </td>
               <td class="text-center">
                 <div class="button-wrapper">

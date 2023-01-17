@@ -25,4 +25,10 @@ $totalPreRequirements = json_decode($imes->fetchPreRequirements(), true);
 $totalPostRequirements = json_decode($imes->fetchPostRequirements(), true);
 $companiesList = json_decode($imes->fetchCompanies(), true);
 $companies = json_decode($imes->fetchCompaniesTwo(), true);
+$totalPresent = json_decode($imes->fetchHeadCount(0), true);
+$totalLate = json_decode($imes->fetchHeadCount(1), true);
+$totalAbsent = json_decode($imes->fetchHeadCount(2), true);
+$totalEarlyBird = json_decode($imes->fetchHeadCount(3), true);
+$totalToday = json_decode($imes->fetchHeadCount(4), true);
+$totalTodayPercentage = number_format(($totalToday / $totalRegisteredStudents) * 100, 0);
 

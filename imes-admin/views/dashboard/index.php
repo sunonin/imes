@@ -47,6 +47,93 @@
         </div>
       </div>
 
+      <div class="col-lg-12 col-md-3 col-6">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center justify-content-between pb-0">
+            <div class="card-title mb-0">
+              <h5 class="m-0 me-2"><i class='bx bxs-calendar'></i> Attendance <small>(<?= date('l - F d, Y') ?>)</small></h5>
+            </div>
+            
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
+              <div class="d-flex flex-column align-items-center gap-1">
+                <h2 class="mb-2"><?= $totalToday ?></h2>
+                <span>Total Students</span>
+                <a href="student-attendance.php" target="_blank" class="btn btn-sm btn-primary">View</a>
+              </div>
+
+              <div id="studentStatisticsChart" style="min-height: 137.55px;">
+              </div>
+
+              <div class="resize-triggers"><div class="expand-trigger"><div style="width: 338px; height: 140px;"></div></div><div class="contract-trigger"></div></div>
+            </div>
+
+            <ul class="p-0 m-0 mt-5">
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-success"><i class="bx bx-mobile-alt"></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Present</h6>
+                    <small class="text-muted">w/ time in & out</small>
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><?= $totalPresent ?></small>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-info"><i class="bx bx-football"></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">On-time</h6>
+                    <small class="text-muted">early bird</small>
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><?= $totalEarlyBird ?></small>
+                  </div>
+                </div>
+              </li>
+
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-closet"></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Late</h6>
+                    <small class="text-muted">w/ time in above work sched</small>
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><?= $totalLate ?></small>
+                  </div>
+                </div>
+              </li>
+
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-home-alt"></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Absent</h6>
+                    <small class="text-muted">w/ uploaded excuse letter</small>
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><?= $totalAbsent ?></small>
+                  </div>
+                </div>
+              </li>
+              
+            </ul>
+
+        </div>
+      </div>
+    </div>
 
     </div>
   </div>

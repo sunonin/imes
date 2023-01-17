@@ -133,7 +133,7 @@ $html = '
     <tr nobr="true">
     	<td nobr="true" colspan="8" style="border-right-color:white"><b>Part III – In-Plant Performance Appraisal _________________________________________________________________<br>OJT Coordinator Performance Appraisal and other requirements ____________________________________________</b>
     	</td>
-    	<td nobr="true" colspan="2" style="border-left-color:white; text-align:left;"><b>60% = <u></u><br> 40% = <u></u><br>100% :Total <br>Final Grade: <u></u></b></td>
+    	<td nobr="true" colspan="2" style="border-left-color:white; text-align:left;"><b>60% = <u>'.$supervisorRate.'</u><br> 40% = <u>'.$coordinatorRate.'</u><br>100% :Total <br>Final Grade: <u>'.$finalGrade.'</u></b></td>
     </tr>
     <tr>
     	<td colspan="10"><b>Rating Scale:</b><br><br>

@@ -10,6 +10,10 @@
       <i class="bx bx-lock-alt me-1"></i>Profile</a>
   </li>
   <li class="nav-item">
+    <a class="nav-link <?= isset($_GET['dtr']) ? 'active' : '' ?>" href="student-dtr.php?id=<?= $_GET['id'] ?>&dtr">
+      <i class="bx bx-lock-alt me-1"></i>DTR</a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link <?= isset($_GET['pr']) ? 'active' : '' ?>" href="student_pre_ojtreq.php?id=<?= $_GET['id'] ?>&pr"><i class="bx bx-detail me-1"></i>Pre-OJT Requirements</a>
   </li>
 

@@ -1432,4 +1432,220 @@ class ImesManager extends Connection {
         return json_encode($data);
     }
 
+    public function fetchDailyTimeRecord($id=null) 
+    {
+        $data = [];
+        $qry = "SELECT 
+                    tblstudent_dtr.id,
+                    tblstudent_dtr.sid,
+                    DATE_FORMAT(tblstudent_dtr.time_in, '%W - %b %d, %Y') AS dateFormat,
+                    DATE_FORMAT(tblstudent_dtr.time_in, '%h:%i %p') AS timeInFormat,
+                    DATE_FORMAT(tblstudent_dtr.time_out, '%h:%i %p') AS timeOutFormat,
+                    tblstudent_dtr.hours,
+                    tblstudent_dtr.am_status,
+                    tblstudent_dtr.pm_status,
+                    tblabsent_form.attachment
+                FROM 
+                    tblstudent_dtr
+                LEFT JOIN 
+                    tblprofile ON tblprofile.id = tblstudent_dtr.sid
+                LEFT JOIN 
+                    tblabsent_form ON tblabsent_form.sid = tblprofile.id AND tblstudent_dtr.time_in = tblabsent_form.datetime
+                WHERE tblstudent_dtr.sid = ".$id;
+
+        $qry.= " ORDER BY tblstudent_dtr.time_in ASC";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $company = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($company);
+    }
+
+    public function fetchHeadCount($cat=null) 
+    {
+        $data = [];
+        $qry = "SELECT 
+                    COUNT(*) AS headCount
+                FROM tblstudent_dtr
+                WHERE DAY(tblstudent_dtr.time_in) = DAY(NOW())";
+
+        if ($cat == 0) {
+            $qry .= "  AND tblstudent_dtr.am_status != 'absent'";
+        }
+
+        if ($cat == 1) {
+            $qry .= "  AND tblstudent_dtr.am_status = 'late'";
+        }
+
+        if ($cat == 2) {
+            $qry .= "  AND tblstudent_dtr.am_status = 'absent'";
+        }
+
+        if ($cat == 3) {
+            $qry .= "  AND tblstudent_dtr.am_status = 'on-time'";
+        }
+
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $company = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return json_encode($company['headCount']);
+    }
+
+    public function fetchStudents3($program=null,$section=null,$company=null,$weekQ=null,$weekB=null) 
+    {
+        $data = [];
+        $qry = "SELECT
+                    tblprofile.id,
+                    CONCAT(tblprofile.fname,' ', tblprofile.lname) AS fullname,
+                    DATE_FORMAT(tblstudent_dtr.time_in,'%Y-%m-%d') AS today,
+                    tblstudent_dtr.am_status AS day_status
+                FROM
+                    tblprofile
+                INNER JOIN 
+                    tblstudent_dtr ON tblstudent_dtr.sid = tblprofile.id
+                LEFT JOIN 
+                    tblschool_information ON tblprofile.id = tblschool_information.uid
+                LEFT JOIN 
+                    tblschool_programs ON tblschool_information.program = tblschool_programs.id
+                LEFT JOIN 
+                    tblstudent_connection ON tblstudent_connection.sid = tblprofile.id
+                LEFT JOIN 
+                    tblcompany ON tblcompany.id = tblstudent_connection.comp_id
+                WHERE
+                    tblprofile.role = 4 AND tblschool_information.uid IS NOT NULL";
+
+
+
+        if (!empty($program) && $program != "") {
+            $qry .= " AND tblschool_programs.id = ".$program;
+        }
+
+        if (!empty($section) && $section != "") {
+            $qry .= " AND tblprofile.section = '".$section."'";
+        }
+
+        if (!empty($company) && $company != "") {
+            $qry .= " AND tblstudent_connection.comp_id = ".$company;
+        }
+
+        $qry .= " ORDER BY tblprofile.id, tblstudent_dtr.time_in ASC";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $dd = $this->fetchStudents33($program,$section,$company,$weekQ,$weekB);
+        $currids = $previds = '';
+        $org = $weekQ;
+
+        foreach ($profiles as $profile) {
+            $currids = $profile['id'];
+
+            if (isset($dd[$profile['id']])) {
+                $dddd = $profile['today'];
+                    $previds = $profile['id'];
+                if (isset($dd[$profile['id']][$dddd])) {
+                    if ($dd[$profile['id']][$dddd]['day_status'] == 'on-time') {
+                        $btn = '<span class="badge bg-label-success me-1"><i class="bx bxs-check-circle"></i> Present</span>';
+                    }
+
+                    if ($dd[$profile['id']][$dddd]['day_status'] == 'late') {
+                        $btn = '<span class="badge bg-label-warning me-1"><i class="bx bxs-calendar-exclamation"></i> Late</span>';
+                    }
+
+                    if ($dd[$profile['id']][$dddd]['day_status'] == 'absent') {
+                        $btn = '<span class="badge bg-label-danger me-1"><i class="bx bxs-user-x"></i> Absent</span>';
+                    }
+
+                    $weekQ[$dddd] = $btn;
+                }
+            }
+
+            $data[$profile['id']] = [
+                'id'        => $profile['id'],
+                'fullname'  => $profile['fullname'],
+                'dtrs'      => $weekQ
+            ];
+
+            if ($currids != $previds) {
+                $weekQ = $org;
+            }
+
+        }
+
+        return $data;
+    }
+
+    public function fetchStudents33($program=null,$section=null,$company=null,$weekQ=null,$weekB=null) 
+    {
+        $data = [];
+        $qry = "SELECT
+                    tblprofile.id,
+                    CONCAT(tblprofile.fname,' ', tblprofile.lname) AS fullname,
+                    DATE_FORMAT(tblstudent_dtr.time_in,'%Y-%m-%d') AS today,
+                    tblstudent_dtr.am_status AS day_status
+                FROM
+                    tblprofile
+                INNER JOIN 
+                    tblstudent_dtr ON tblstudent_dtr.sid = tblprofile.id
+                LEFT JOIN 
+                    tblschool_information ON tblprofile.id = tblschool_information.uid
+                LEFT JOIN 
+                    tblschool_programs ON tblschool_information.program = tblschool_programs.id
+                LEFT JOIN 
+                    tblstudent_connection ON tblstudent_connection.sid = tblprofile.id
+                LEFT JOIN 
+                    tblcompany ON tblcompany.id = tblstudent_connection.comp_id
+                WHERE
+                    tblprofile.role = 4 AND tblschool_information.uid IS NOT NULL";
+
+        $qry .= " AND tblstudent_dtr.time_in BETWEEN '".$weekB[0]."' AND '".$weekB[1]."' "; 
+
+        if (!empty($program) && $program != "") {
+            $qry .= " AND tblschool_programs.id = ".$program;
+        }
+
+        if (!empty($section) && $section != "") {
+            $qry .= " AND tblprofile.section = '".$section."'";
+        }
+
+        if (!empty($company) && $company != "") {
+            $qry .= " AND tblstudent_connection.comp_id = ".$company;
+        }
+
+        $qry .= " ORDER BY tblprofile.id, tblstudent_dtr.time_in ASC";
+        
+        $stmt = $this->conn->prepare($qry);
+        $stmt->execute();
+        $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($profiles as $profile) {
+            $data[$profile['id']][$profile['today']] = [
+                'id'        => $profile['id'],
+                'fullname'  => $profile['fullname'],
+                'today'     => $profile['today'],
+                'day_status'     => $profile['day_status'],
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getMonthOpts() 
+    {
+        $months = [];
+        for ($m=1; $m<=12; $m++) {
+            $dd = $m;
+            if ($m < 10) {
+                $dd = '0'.$m;
+            }
+            $months[$dd] = date('F', mktime(0,0,0,$m, 1, date('Y')));
+        }
+
+
+        return $months;
+    }
+
 }

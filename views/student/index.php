@@ -103,7 +103,19 @@
           </div>
 
           <?php if (isset($studentOverview[1]) && (isset($companyConnected) && !empty($companyConnected)) && (isset($workSched) && !empty($workSched))): ?>
-            <div class="row mb-3">
+
+            <?php if ($dtr['timeInFormat'] == "" && !in_array($dtr['am_status'], ['late', 'on-time'])): ?>
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-warning absentFormModal" data-bs-toggle="modal" data-bs-target="#absentFormModal"><span class="tf-icons bx bxs-time"></span> File Leave of Absent</button>
+                </div>
+              </div>
+            <?php elseif ($dtr['am_status'] == "absent"): ?>
+              You filed for Leave of absent today. Have a safe day ahead!
+            <?php endif ?>
+
+            <?php if (!in_array($dtr['am_status'], ['absent'])): ?>
+              <div class="row mb-3">
               <div class="col-md-12">
                 <table class="table table-bordered">
                   <tbody>
@@ -182,6 +194,8 @@
                 </table>
               </div>
             </div>
+            <?php endif ?>
+
           <?php else: ?>
             <div class="row">
               <div class="col-md-12">

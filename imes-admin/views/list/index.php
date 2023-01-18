@@ -9,8 +9,8 @@
           <label class="form-label" for="filterSchoolYear">School Year</label>
             <select id="filterSchoolYear" name="filterSchoolYear" class="select2 form-select">
               <option value="" selected disabled>-- School Year --</option>
-              <option value="2023" <?= isset($_GET['filterSchoolYear']) ? ($_GET['filterSchoolYear'] == 2023 ? 'selected' : '') : '' ; ?>>2023</option>
-              <option value="2022" <?= isset($_GET['filterSchoolYear']) ? ($_GET['filterSchoolYear'] == 2022 ? 'selected' : '') : '' ; ?>>2022</option>
+              <option value="2023" <?= isset($filterSchoolYear ) ? ($filterSchoolYear  == 2023 ? 'selected' : '') : '' ; ?>>2023</option>
+              <option value="2022" <?= isset($filterSchoolYear ) ? ($filterSchoolYear  == 2022 ? 'selected' : '') : '' ; ?>>2022</option>
             </select>
         </div>
 

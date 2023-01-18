@@ -56,9 +56,9 @@
             
           </div>
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
+            <div class="d-flex justify-content-between align-items-center mt-3" style="position: relative;">
               <div class="d-flex flex-column align-items-center gap-1">
-                <h2 class="mb-2"><?= $totalToday ?></h2>
+                <h2 class="mb-2"><?= $totalPresent ?></h2>
                 <span>Total Students</span>
                 <a href="student-attendance.php" target="_blank" class="btn btn-sm btn-primary">View</a>
               </div>
@@ -69,61 +69,61 @@
               <div class="resize-triggers"><div class="expand-trigger"><div style="width: 338px; height: 140px;"></div></div><div class="contract-trigger"></div></div>
             </div>
 
-            <ul class="p-0 m-0 mt-5">
-              <li class="d-flex mb-4 pb-1">
+            <ul class="p-0 m-0 mt-4">
+              <li class="d-flex mb-2 p-3" style="border-radius: 5px; background-color: #f5f5f9;">
                 <div class="avatar flex-shrink-0 me-3">
                   <span class="avatar-initial rounded bg-label-success"><i class="bx bx-mobile-alt"></i></span>
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
                     <h6 class="mb-0">Present</h6>
-                    <small class="text-muted">w/ time in & out</small>
+                    <small class="text">w/ time in & out</small>
                   </div>
-                  <div class="user-progress">
+                  <div class="user-progress" style="font-size: 15pt;">
                     <small class="fw-semibold"><?= $totalPresent ?></small>
                   </div>
                 </div>
               </li>
-              <li class="d-flex mb-4 pb-1">
+              <li class="d-flex mb-2 p-3" style="border-radius: 5px; background-color: #f5f5f9;">
                 <div class="avatar flex-shrink-0 me-3">
                   <span class="avatar-initial rounded bg-label-info"><i class="bx bx-football"></i></span>
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
                     <h6 class="mb-0">On-time</h6>
-                    <small class="text-muted">early bird</small>
+                    <small class="text">early bird</small>
                   </div>
-                  <div class="user-progress">
+                  <div class="user-progress" style="font-size: 15pt;">
                     <small class="fw-semibold"><?= $totalEarlyBird ?></small>
                   </div>
                 </div>
               </li>
 
-              <li class="d-flex mb-4 pb-1">
+              <li class="d-flex mb-2 p-3" style="border-radius: 5px; background-color: #f5f5f9;">
                 <div class="avatar flex-shrink-0 me-3">
                   <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-closet"></i></span>
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
                     <h6 class="mb-0">Late</h6>
-                    <small class="text-muted">w/ time in above work sched</small>
+                    <small class="text">w/ time in above work sched</small>
                   </div>
-                  <div class="user-progress">
+                  <div class="user-progress" style="font-size: 15pt;">
                     <small class="fw-semibold"><?= $totalLate ?></small>
                   </div>
                 </div>
               </li>
 
-              <li class="d-flex mb-4 pb-1">
+              <li class="d-flex p-3" style="border-radius: 5px; background-color: #f5f5f9;">
                 <div class="avatar flex-shrink-0 me-3">
                   <span class="avatar-initial rounded bg-label-danger"><i class="bx bx-home-alt"></i></span>
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                   <div class="me-2">
                     <h6 class="mb-0">Absent</h6>
-                    <small class="text-muted">w/ uploaded excuse letter</small>
+                    <small class="text">w/ uploaded excuse letter</small>
                   </div>
-                  <div class="user-progress">
+                  <div class="user-progress" style="font-size: 15pt;">
                     <small class="fw-semibold"><?= $totalAbsent ?></small>
                   </div>
                 </div>

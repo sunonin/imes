@@ -30,5 +30,5 @@ $totalLate = json_decode($imes->fetchHeadCount(1), true);
 $totalAbsent = json_decode($imes->fetchHeadCount(2), true);
 $totalEarlyBird = json_decode($imes->fetchHeadCount(3), true);
 $totalToday = json_decode($imes->fetchHeadCount(4), true);
-$totalTodayPercentage = number_format(($totalToday / $totalRegisteredStudents) * 100, 0);
+$totalTodayPercentage = number_format(($totalPresent / $totalRegisteredStudents) * 100, 0);
 

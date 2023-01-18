@@ -513,7 +513,7 @@ class ImesManager extends Connection {
             ];
         }
 
-        return json_encode($data);
+        return $data;
     }
 
     public function fetchStudent($id=null) 
@@ -1547,6 +1547,7 @@ class ImesManager extends Connection {
                 $dddd = $profile['today'];
                     $previds = $profile['id'];
                 if (isset($dd[$profile['id']][$dddd])) {
+                    $btn = '';
                     if ($dd[$profile['id']][$dddd]['day_status'] == 'on-time') {
                         $btn = '<span class="badge bg-label-success me-1"><i class="bx bxs-check-circle"></i> Present</span>';
                     }
@@ -1646,6 +1647,30 @@ class ImesManager extends Connection {
 
 
         return $months;
+    }
+
+    public function fetchWeeksOfMonth($date)
+    {
+           
+        $begin  = date('Y-m-d', strtotime('first day of this month', strtotime($date)));
+        $end    = date('Y-m-d', strtotime('last day of this month', strtotime($date)));
+
+        $beginG  = new DateTime($begin);
+        $endG    = new DateTime($end);
+
+        $weekss = [];
+        $week = 1;
+        while ($beginG <= $endG) // Loop will work begin to the end date 
+        {
+            if($beginG->format("D") == "Mon") //Check that the day is Sunday here
+            {
+                $weekss[$beginG->format("Y-m-d")] = 'Week '.$week++ .' ('.$beginG->format("D d").')';
+            }
+
+            $beginG->modify('+1 day');
+        }
+
+        return json_encode($weekss);
     }
 
 }

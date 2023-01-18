@@ -79,7 +79,7 @@ include 'public/base.php';
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Weekly',
+                label: 'today',
                 formatter: function (w) {
                   return <?= $totalTodayPercentage ?> +'%';
                 }

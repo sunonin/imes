@@ -112,6 +112,44 @@ include 'public/base.php';
       });
     });
 
+    $(document).on('change', '#filterMonth', function(e){
+      let year = $('#filterSchoolYear').val();
+      let month = $(this).val();
+          let path = 'route/get.php?dd='+year+'-'+month+'/getwks';
+
+          $.get(path, function(result){
+        const response = JSON.parse(result);
+        if (response.type) {
+          let data = JSON.parse(response.data);
+          $('#filterWeek').empty();
+          $('#filterWeek').append('<option selected disabled>-- Section --</option>');
+          $.each(data, function(k,i){
+            let dd = '<option value="'+k+'">'+i+'</option>';
+            $('#filterWeek').append(dd);
+          });
+        }
+      });
+    });
+
+    $(document).on('change', '#filterSchoolYear', function(e){
+      let year = $('#filterMonth').val();
+      let month = $(this).val();
+          let path = 'route/get.php?dd='+year+'-'+month+'/getwks';
+
+          $.get(path, function(result){
+        const response = JSON.parse(result);
+        if (response.type) {
+          let data = JSON.parse(response.data);
+          $('#filterWeek').empty();
+          $('#filterWeek').append('<option selected disabled>-- Section --</option>');
+          $.each(data, function(k,i){
+            let dd = '<option value="'+k+'">'+i+'</option>';
+            $('#filterWeek').append(dd);
+          });
+        }
+      });
+    });
+
   })
 
 </script>

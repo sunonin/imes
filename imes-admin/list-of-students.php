@@ -7,7 +7,7 @@ include 'public/base.php';
 <?php startblock('title') ?><?php echo $menuTitle ?><?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('controller/ListController.php'); ?>
+  <?php include('controller/ListFController.php'); ?>
   <?php include('views/list/index.php'); ?>
 <?php endblock() ?>
 

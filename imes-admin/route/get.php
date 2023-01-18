@@ -31,6 +31,9 @@ if ($method == 'GET') {
 			case 'task':
 				$response = array('type'=> 1, 'data'=>$imes->fetchJournal($data[0]));
 				break;
+			case 'wks':
+				$response = array('type'=> 1, 'data'=>$imes->fetchWeeksOfMonth($data[0]));
+				break;
 
 		}	
 	}
